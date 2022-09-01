@@ -37,8 +37,8 @@ app.post('/api/signin', celebrate({
   }),
 }), login);
 
-app.use('/api/users', auth, cors, require('./routes/users'));
-app.use('/api/cards', auth, cors, require('./routes/cards'));
+app.use('/api/users', auth, require('./routes/users'));
+app.use('/api/cards', auth, require('./routes/cards'));
 
 app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 
