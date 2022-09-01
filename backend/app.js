@@ -8,6 +8,7 @@ const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
 const error = require('./middlewares/erros');
 const NotFoundError = require('./errors/NotFoundError');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -15,6 +16,8 @@ const app = express();
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
 app.use(bodyParser.json());
+
+app.use(requestLogger);
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
@@ -37,6 +40,9 @@ app.use('/users', auth, cors, require('./routes/users'));
 app.use('/cards', auth, cors, require('./routes/cards'));
 
 app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
+
+app.use(errorLogger);
+
 app.use(errors());
 app.use(error);
 
