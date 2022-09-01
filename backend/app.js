@@ -3,10 +3,8 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
-const cors = require('cors');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const corsOptions = require('./middlewares/cors');
 const error = require('./middlewares/erros');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -19,7 +17,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(requestLogger);
-app.use(cors(corsOptions));
 app.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
