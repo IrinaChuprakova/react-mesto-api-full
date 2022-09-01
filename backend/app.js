@@ -3,9 +3,10 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
+const cors = require('cors');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
 const error = require('./middlewares/erros');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -18,8 +19,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(requestLogger);
-
-app.post('/signup', celebrate({
+app.use(cors);
+app.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -29,15 +30,15 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.post('/signin', celebrate({
+app.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), login);
 
-app.use('/users', auth, cors, require('./routes/users'));
-app.use('/cards', auth, cors, require('./routes/cards'));
+app.use('/api/users', auth, cors, require('./routes/users'));
+app.use('/api/cards', auth, cors, require('./routes/cards'));
 
 app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 

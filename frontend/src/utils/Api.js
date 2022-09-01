@@ -102,6 +102,6 @@ export class Api {
     }
   }
 
-  const api = new Api({baseUrl:'http://mestoirina.nomoredomains.sbs'});
+  const api = new Api({baseUrl:'http://mestoirina.nomoredomains.sbs/api'});
   
   export default api;
