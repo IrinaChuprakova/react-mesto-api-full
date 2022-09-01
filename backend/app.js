@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const error = require('./middlewares/erros');
 const NotFoundError = require('./errors/NotFoundError');
 
@@ -32,8 +33,8 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.use('/users', auth, require('./routes/users'));
-app.use('/cards', auth, require('./routes/cards'));
+app.use('/users', auth, cors, require('./routes/users'));
+app.use('/cards', auth, cors, require('./routes/cards'));
 
 app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 app.use(errors());
