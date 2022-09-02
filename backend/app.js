@@ -16,8 +16,9 @@ const app = express();
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
 app.use(bodyParser.json());
-
+app.use(cors);
 app.use(requestLogger);
+
 app.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -35,8 +36,8 @@ app.post('/api/signin', celebrate({
   }),
 }), login);
 
-app.use('/api/users', auth, cors, require('./routes/users'));
-app.use('/api/cards', auth, cors, require('./routes/cards'));
+app.use('/api/users', auth, require('./routes/users'));
+app.use('/api/cards', auth, require('./routes/cards'));
 
 app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 
