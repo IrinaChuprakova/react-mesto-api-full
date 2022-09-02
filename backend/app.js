@@ -12,7 +12,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-app.use(cors({ origin: 'http://api.mestoirina.nomoredomains.sbs.nomoredomains.sbs' }));
+app.use(cors({ origin: 'http://api.mestoirina.nomoredomains.sbs' }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
