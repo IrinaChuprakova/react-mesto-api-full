@@ -6,6 +6,7 @@ const { errors, celebrate, Joi } = require('celebrate');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const error = require('./middlewares/erros');
+const cors = require('./middlewares/cors');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -34,8 +35,8 @@ app.post('/api/signin', celebrate({
   }),
 }), login);
 
-app.use('/api/users', auth, require('./routes/users'));
-app.use('/api/cards', auth, require('./routes/cards'));
+app.use('/api/users', auth, cors, require('./routes/users'));
+app.use('/api/cards', auth, cors, require('./routes/cards'));
 
 app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 
