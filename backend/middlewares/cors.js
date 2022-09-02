@@ -1,6 +1,8 @@
 const allowedCors = [
   'http://mestoirina.nomoredomains.sbs/',
   'https://mestoirina.nomoredomains.sbs/',
+  'http://mestoirina.nomoredomains.sbs/api',
+  'https://mestoirina.nomoredomains.sbs/api',
   'localhost:3000',
 ];
 

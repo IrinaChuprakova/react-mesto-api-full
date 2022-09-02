@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://mestoirina.nomoredomains.sbs/api';
 
 function checkStatus(res){
   if (res.ok){
