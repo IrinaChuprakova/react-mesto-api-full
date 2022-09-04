@@ -14,13 +14,13 @@ const options = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3001',
-    'https://MestoIrina.nomoredomains.sbs',
+    'http://MestoIrina.nomoredomains.sbs',
     'https://MestoIrina.nomoredomains.sbs',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
   optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Set-Cookie'],
   credentials: true,
 };
 
