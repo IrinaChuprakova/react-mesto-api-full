@@ -32,7 +32,7 @@ export const authorize = (email, password) => {
   })
     .then(res => {
       if (res.ok){
-        console.log(res.headers.get('set-cookie'));
+        console.log(res.headers.get('Set-Cookie'));
         return res.json();
       }
       else{
