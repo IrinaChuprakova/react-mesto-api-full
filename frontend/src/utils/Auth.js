@@ -27,8 +27,8 @@ export const authorize = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
+    credentials: "include",
     body: JSON.stringify({ email, password }),
-    credentials: 'same-origin'
   })
     .then(res => {
       if (res.ok){
