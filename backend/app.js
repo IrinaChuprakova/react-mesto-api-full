@@ -26,7 +26,7 @@ const options = {
 
 const { PORT = 3000 } = process.env;
 const app = express();
-app.use('*', cors(options));
+app.use(cors(options));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
