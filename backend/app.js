@@ -10,9 +10,20 @@ const error = require('./middlewares/erros');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const whitelist = ['http://localhost:3001/', 'http://localhost:3000/'];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
 const { PORT = 3000 } = process.env;
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());

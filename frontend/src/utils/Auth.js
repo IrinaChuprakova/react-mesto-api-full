@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://MestoIrina.nomoredomains.sbs';
+export const BASE_URL = 'http://mestoirina.nomoredomains.sbs';
 
 function checkStatus(res){
   if (res.ok){
@@ -25,11 +25,20 @@ export const authorize = (email, password) => {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password }),
+    credentials: 'same-origin'
   })
-    .then(checkStatus)
+    .then(res => {
+      if (res.ok){
+        console.log(res.headers.get('set-cookie'));
+        return res.json();
+      }
+      else{
+        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+      }
+    })
 };
 
 export const getContent = (token) => {
