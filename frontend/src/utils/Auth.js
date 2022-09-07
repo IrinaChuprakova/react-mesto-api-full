@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://mestoirina.nomoredomains.sbs';
+export const BASE_URL = 'http://localhost:3000';
 
 function checkStatus(res){
   if (res.ok){
@@ -30,15 +30,7 @@ export const authorize = (email, password) => {
     credentials: "same-origin",
     body: JSON.stringify({ email, password }),
   })
-    .then(res => {
-      if (res.ok){
-        console.log(res.headers.get('set-cookie'));
-        return res.json();
-      }
-      else{
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      }
-    })
+    .then(checkStatus)
 };
 
 export const getContent = (token) => {

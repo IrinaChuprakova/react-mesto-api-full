@@ -36,7 +36,7 @@ function App() {
     api
       .getUserInfo()
       .then((profileInfo) => {
-        setCurrentUser(profileInfo);
+        setCurrentUser(profileInfo.user);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -45,7 +45,7 @@ function App() {
     api
       .getInitialCards()
       .then((cards) => {
-        setCards(cards);
+        setCards(cards.card);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -76,14 +76,15 @@ function App() {
     setInfoTooltip(false);
     setSelectedCard({});
   }
+
   function handleUpdateUser(name, about) {
     api
       .sendUserInfo(name, about)
       .then((res) =>
         setCurrentUser({
           ...currentUser,
-          name: res.name,
-          about: res.about,
+          name: res.user.name,
+          about: res.user.about,
         })
       )
       .then(() => setIsEditProfilePopupOpen(false))
@@ -96,7 +97,7 @@ function App() {
       .then((res) =>
         setCurrentUser({
           ...currentUser,
-          avatar: res.avatar,
+          avatar: res.user.avatar,
         })
       )
       .then(() => setIsEditAvatarPopupOpen(false))
@@ -106,18 +107,18 @@ function App() {
   function handleAddPlaceSubmit(name, link) {
     api
       .sendCard(name, link)
-      .then((res) => setCards([res, ...cards]))
+      .then((res) => setCards([res.card, ...cards]))
       .then(() => setIsAddPlacePopupOpen(false))
       .catch((error) => console.log(error));
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card._id ? newCard.card : c))
         );
       })
       .catch((error) => console.log(error));
@@ -138,7 +139,6 @@ function App() {
         if (res) {
           setInfoTooltip(true);
           setStatus(true);
-          // setLoggedIn(true);
           history.push("/");
         }
       })
@@ -158,7 +158,7 @@ function App() {
           history.push("/");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {console.log(error);})
   }
 
   function tokenCheck() {
@@ -166,11 +166,14 @@ function App() {
     if (token) {
       Auth.getContent(token)
         .then((res) => {
-          setEmail(res.data.email)
+          setEmail(res.user.email)
           setLoggedIn(true);
           history.push("/");
         })
         .catch((error) => {
+          if (404) {
+            localStorage.removeItem('token');
+          }
           console.log(error);
         });
     }

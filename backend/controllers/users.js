@@ -11,17 +11,18 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
       res
-        .cookie('jwt', token, {
-          maxAge: 3600000 * 24 * 7,
-          httpOnly: true,
-          sameSite: true,
-        })
+        // .cookie('jwt', token, {
+        //   maxAge: 3600000 * 24 * 7,
+        //   httpOnly: true,
+        //   sameSite: true,
+        // })
         .status(200)
         .send({
           name: user.name,
           about: user.about,
           avatar: user.avatar,
           email: user.email,
+          token,
           _id: user._id,
         })
         .end();
@@ -37,7 +38,13 @@ const getUsers = (req, res, next) => {
 
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .then((user) => res.send({ user }))
+    .then((user) => {
+      if (!user) {
+        next(new NotFoundError('Запрашиваемый пользователь не найден'));
+        return;
+      }
+      res.send({ user });
+    })
     .catch(next);
 };
 
@@ -83,6 +90,7 @@ const createUser = (req, res, next) => {
 };
 
 const updateProfile = (req, res, next) => {
+  console.log(req.body);
   User.findByIdAndUpdate(
     req.user._id,
     { name: req.body.name, about: req.body.about },

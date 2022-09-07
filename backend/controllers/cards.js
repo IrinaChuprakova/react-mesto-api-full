@@ -47,7 +47,7 @@ const cardLike = (req, res, next) => {
     .then((card) => { res.send({ card }); })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequest('Переданы некорректные данные при обновлении аватара'));
+        next(new BadRequest('Переданы некорректные данные при постановке лайка'));
         return;
       }
       next(err);
