@@ -110,7 +110,7 @@ export class Api {
       'Content-Type': 'application/json'
     }
    }
-  const api = new Api({baseUrl:'http://localhost:3000', 
+  const api = new Api({baseUrl:'http://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs', 
   // headers: {
   //   'Authorization': `Bearer ${localStorage.getItem("token")}`,
   //   'Content-Type': 'application/json'

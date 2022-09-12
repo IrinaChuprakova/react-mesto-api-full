@@ -16,6 +16,8 @@ const options = {
     'http://localhost:3001',
     'http://MestoIrina.nomoredomains.sbs',
     'https://MestoIrina.nomoredomains.sbs',
+    'https://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
+    'http://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
