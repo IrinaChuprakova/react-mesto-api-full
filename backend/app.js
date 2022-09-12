@@ -10,25 +10,27 @@ const error = require('./middlewares/erros');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const options = {
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://MestoIrina.nomoredomains.sbs',
-    'https://MestoIrina.nomoredomains.sbs',
-    'https://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
-    'http://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Set-Cookie'],
-  credentials: true,
-};
+// const options = {
+//   origin: [
+//     'http://localhost:3000',
+//     'http://localhost:3001',
+//     'http://MestoIrina.nomoredomains.sbs',
+//     'https://MestoIrina.nomoredomains.sbs',
+//     'https://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
+//     'http://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
+//   ],
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//   allowedHeaders: ['Content-Type', 'origin', 'Authorization', 'Set-Cookie'],
+//   credentials: true,
+// };
 
 const { PORT = 3000 } = process.env;
 const app = express();
-app.use(cors(options));
+// app.use(cors(options));
+
+app.use(cors);
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
