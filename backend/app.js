@@ -37,7 +37,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
 
-app.post('/signup', celebrate({
+app.post('api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -47,17 +47,17 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.post('/signin', celebrate({
+app.post('api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), login);
 
-app.use('/users', auth, require('./routes/users'));
-app.use('/cards', auth, require('./routes/cards'));
+app.use('api/users', auth, require('./routes/users'));
+app.use('api/cards', auth, require('./routes/cards'));
 
-app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
+app.use('api/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 
 app.use(errorLogger);
 
