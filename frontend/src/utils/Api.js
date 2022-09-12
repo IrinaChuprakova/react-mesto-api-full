@@ -110,7 +110,7 @@ export class Api {
       'Content-Type': 'application/json'
     }
    }
-  const api = new Api({baseUrl:'http://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs', 
+  const api = new Api({baseUrl:'http://mestoirina.nomoredomains.sbs', 
 });
   
   export default api;
