@@ -16,7 +16,7 @@ export class Api {
     getInitialCards() {
       const cardsUrl = `${this._baseUrl}/cards`;
       return fetch(cardsUrl,{
-        headers: this._headers
+        headers: getHeaders()
       })
       .then(this._checkStatus);
     }
@@ -24,7 +24,7 @@ export class Api {
     getUserInfo() {
       const cardsUrl = `${this._baseUrl}/users/me`;
       return fetch(cardsUrl,{
-        headers: this._headers
+        headers: getHeaders()
       })
       .then(this._checkStatus);
     }
@@ -34,7 +34,7 @@ export class Api {
       const cardsUrl = `${this._baseUrl}/users/me`;
       return fetch(cardsUrl,{
         method: 'PATCH',
-        headers: this._headers,
+        headers: getHeaders(),
         body: JSON.stringify({
           name: name,
           about: about
@@ -47,7 +47,7 @@ export class Api {
       const cardsUrl = `${this._baseUrl}/cards`;
       return fetch(cardsUrl,{
         method: 'POST',
-        headers: this._headers,
+        headers: getHeaders(),
         body: JSON.stringify({
           name: name,
           link: link
@@ -60,7 +60,7 @@ export class Api {
       const cardsUrl = `${this._baseUrl}/cards/${cardId}`;
       return fetch(cardsUrl,{
         method: 'DELETE',
-        headers: this._headers
+        headers: getHeaders()
       })
       .then(this._checkStatus);
     }
@@ -77,7 +77,7 @@ export class Api {
       const cardsUrl = `${this._baseUrl}/cards/${cardId}/likes`;
       return fetch(cardsUrl,{
         method: 'PUT',
-        headers: this._headers
+        headers: getHeaders()
       })
       .then(this._checkStatus);
     }
@@ -86,7 +86,7 @@ export class Api {
       const cardsUrl = `${this._baseUrl}/cards/${cardId}/likes`;
       return fetch(cardsUrl,{
         method: 'DELETE',
-        headers: this._headers
+        headers: getHeaders()
       })
       .then(this._checkStatus);
     }
@@ -95,16 +95,26 @@ export class Api {
       const cardsUrl = `${this._baseUrl}/users/me/avatar `;
       return fetch(cardsUrl,{
         method: 'PATCH',
-        headers: this._headers,
+        headers: getHeaders(),
         body: JSON.stringify({avatar:link})
       })
       .then(this._checkStatus);
     }
+
+
   }
 
-  const api = new Api({baseUrl:'http://localhost:3000', headers: {
-    'Authorization': `Bearer ${localStorage.getItem("token")}`,
-    'Content-Type': 'application/json'
-  }});
+  function getHeaders(){
+    return {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`,
+      'Content-Type': 'application/json'
+    }
+   }
+  const api = new Api({baseUrl:'http://localhost:3000', 
+  // headers: {
+  //   'Authorization': `Bearer ${localStorage.getItem("token")}`,
+  //   'Content-Type': 'application/json'
+  // }
+});
   
   export default api;

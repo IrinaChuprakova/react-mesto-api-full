@@ -144,7 +144,7 @@ function App() {
       })
       .catch(() => {
         setInfoTooltip(true);
-          setStatus(false);
+        setStatus(false);
       })
   }
 
@@ -155,6 +155,21 @@ function App() {
           localStorage.setItem("token", res.token);
           setEmail(email);
           setLoggedIn(true);
+          
+          api
+      .getUserInfo()
+      .then((profileInfo) => {
+        setCurrentUser(profileInfo.user);
+      })
+      .catch((error) => console.log(error));
+
+      api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards.card);
+      })
+      .catch((error) => console.log(error));
+
           history.push("/");
         }
       })
