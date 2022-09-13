@@ -197,7 +197,7 @@ function App() {
   function handleLogOut(){
     localStorage.removeItem('token');
     setLoggedIn(false);
-    history.push('/log-in');
+    history.push('/signin');
   }
 
   return (
@@ -206,11 +206,11 @@ function App() {
         <div className="pg">
           <Header email={email} onLogOut={handleLogOut}/>
           <Switch>
-            <Route path="/sign-up">
+            <Route path="/signup">
               <Register onRegister={handleRegister} />
             </Route>
 
-            <Route path="/log-in">
+            <Route path="/signin">
               <Login onLogin={handleLogin} />
             </Route>
 
@@ -229,7 +229,7 @@ function App() {
             />
 
             <Route>
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/log-in" />}
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
             </Route>
           </Switch>
           <EditProfilePopup

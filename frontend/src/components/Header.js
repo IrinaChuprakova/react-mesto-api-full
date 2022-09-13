@@ -6,12 +6,12 @@ function Header(props) {
     <header className="header">
       <img className="header__logo" alt="logo" src={headerLogo} />
       <Switch>
-        <Route path="/log-in">
-        <Link to="/sign-up" className="header__link">Регистрация</Link>
+        <Route path="/signin">
+        <Link to="/signup" className="header__link">Регистрация</Link>
         </Route>
 
-        <Route path="/sign-up">
-        <Link to="/log-in" className="header__link">Войти</Link>
+        <Route path="/signup">
+        <Link to="/signin" className="header__link">Войти</Link>
         </Route>
 
         <Route path="/">
