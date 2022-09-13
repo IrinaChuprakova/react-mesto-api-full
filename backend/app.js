@@ -16,8 +16,6 @@ const options = {
     'http://localhost:3001',
     'http://MestoIrina.nomoredomains.sbs',
     'https://MestoIrina.nomoredomains.sbs',
-    'https://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
-    'http://api.MestoIrina.nomoredomains.sbs.nomoredomains.sbs',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
@@ -30,14 +28,12 @@ const { PORT = 3000 } = process.env;
 const app = express();
 app.use(cors(options));
 
-// app.use(cors);
-
 mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
 
-app.post('/signup', celebrate({
+app.post('/api/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
@@ -47,17 +43,17 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.post('/signin', celebrate({
+app.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 }), login);
 
-app.use('/users', auth, require('./routes/users'));
-app.use('/cards', auth, require('./routes/cards'));
+app.use('/api/users', auth, require('./routes/users'));
+app.use('/api/cards', auth, require('./routes/cards'));
 
-app.use('/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
+app.use('/api/*', auth, () => { throw new NotFoundError('Произошла ошибка'); });
 
 app.use(errorLogger);
 
