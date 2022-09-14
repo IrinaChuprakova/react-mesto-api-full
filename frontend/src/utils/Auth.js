@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://MestoIrina.nomoredomains.sbs/api';
+export const BASE_URL = 'https://MestoIrina.nomoredomains.sbs/api';
 
 function checkStatus(res){
   if (res.ok){
