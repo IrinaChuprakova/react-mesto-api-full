@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -32,6 +33,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/api/signup', celebrate({
   body: Joi.object().keys({
