@@ -6,7 +6,6 @@ const Conflict = require('../errors/Conflict');
 const NotFoundError = require('../errors/NotFoundError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-
 const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)

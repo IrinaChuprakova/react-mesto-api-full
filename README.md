@@ -3,6 +3,8 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-https://mestoirina.nomoredomains.sbs/
+IP-адрес 51.250.71.211
 
-Публичный IPv4 51.250.71.211
+Frontend https://mestoirina.nomoredomains.sbs/
+
+Backend https://mestoirina.nomoredomains.sbs/api
