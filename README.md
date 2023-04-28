@@ -24,6 +24,6 @@ Express
 MongodDB  
 
 ### Инструкция по установке:
-Клонировать репозиторий https://github.com/IrinaChuprakova/react-mesto-api-full.git
-Установить зависимости: cd react-mesto-api-full npm install
-Запустить приложение в режиме разработки: npm run start npm run dev
+* Клонировать репозиторий https://github.com/IrinaChuprakova/react-mesto-api-full.git
+* Установить зависимости: cd react-mesto-api-full npm install
+* Запустить приложение в режиме разработки: npm run start npm run dev
